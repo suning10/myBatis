@@ -41,7 +41,7 @@ public class Main {
                 System.out.println(s.toString());
             }
 
-            User user = mapper.selectuserID(1);
+            User user = mapper.selectuserID(20);
 
             System.out.println(user.toString());
 
@@ -91,6 +91,128 @@ public class Main {
             ) {
                 System.out.println(s.toString());
             }
+
+            System.out.println("now adding");
+
+            mapper.addUser(new User("c",20,"sr"));
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+            //return id added
+            System.out.println("now adding and return newly added id");
+
+
+            User addedUser = new User("d",20,"sr");
+            int id = mapper.addUserReturnId(addedUser);
+            int userId = addedUser.getId();
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+            System.out.println(id);
+            System.out.println(userId);
+
+            //return id added
+
+            System.out.println("now update User");
+
+
+            addedUser.setName("e");
+            addedUser.setAge(-1);
+            addedUser.setCurPosition("sr");
+            mapper.updateUser(addedUser);
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+
+            //return id added
+
+            //need provide all information of user
+            //if not, will update to null ---> if test
+            //deal with comma -- name, age, position --> update age ---> update set age = ?, where...
+
+            System.out.println("now update User with set and if");
+
+
+            addedUser.setName("f");
+            addedUser.setAge(-3); //User{id=17, name='f', age=-1, curPosition='sr'}
+            mapper.updateUserDynamic(addedUser);
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+            System.out.println("now delete by id");
+
+
+
+            mapper.delById(11);
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+            System.out.println("now delete by id list");
+
+
+            int[] ids = new int[]{1,2,3,4,5};
+            mapper.delUsers(ids);
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+            System.out.println("now delete by id list");
+
+
+            int[] idss = new int[]{10,11,12,13};
+            mapper.delUsersArray(idss);
+
+            //commit changes
+            session.commit();
+
+            userList = mapper.selectUser();
+            for (User s:userList
+            ) {
+                System.out.println(s.toString());
+            }
+
+
         }
 
     }

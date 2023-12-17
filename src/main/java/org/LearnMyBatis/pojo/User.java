@@ -7,6 +7,22 @@ public class User {
     String name;
     int age;
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getCurPosition() {
+        return curPosition;
+    }
+
     String curPosition;
 
     public User(int id, String name, int age, String curPosition) {

@@ -9,7 +9,10 @@
     <resultMap id="userResultMap" type="User">
         <result column="cur_position" property="curPosition"/>
     </resultMap>
-<!--    <select id="selectUser" resultType="org.LearnMyBatis.pojo.User">-->
+
+
+
+    <!--    <select id="selectUser" resultType="org.LearnMyBatis.pojo.User">-->
 <!--    <select id="selectUser" resultType="User">-->
     <select id="selectUser" resultMap="userResultMap">
         select * from user
@@ -87,6 +90,64 @@
             </choose>
         </where>
     </select>
+
+    <insert id="addUser">
+        insert into user (Name, Age, cur_position)
+        values
+        (#{name},#{age},#{curPosition});
+    </insert>
+    <insert id="addUserReturnId" useGeneratedKeys="true" keyProperty="id">
+        insert into user (Name, Age, cur_position)
+        values
+        (#{name},#{age},#{curPosition});
+    </insert>
+
+    <update id="updateUser">
+
+        update User
+        set name = #{name},
+            age = #{age},
+            cur_position = #{curPosition}
+        where id = #{id};
+
+    </update>
+    <update id="updateUserDynamic">
+
+        update User
+        <set>
+            <if test="name !=null and name != ''">
+                name = #{name},
+            </if>
+            <if test="age > 0">
+                age = #{age},
+            </if>
+            <if test="curPosition != null and curPosition !=''">
+                cur_position = #{curPosition}
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+
+    <delete id="delById">
+        delete from user where id = #{userid};
+    </delete>
+    <delete id="delUsers">
+        delete from user
+        where id in
+        <foreach collection="ids" item = "id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+
+    </delete>
+    <delete id="delUsersArray">
+        delete from user
+        where id in
+        <foreach collection="array" item = "id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        ;
+    </delete>
 
 
 </mapper>

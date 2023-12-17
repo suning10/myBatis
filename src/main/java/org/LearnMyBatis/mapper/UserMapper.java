@@ -23,4 +23,18 @@ public interface UserMapper {
 
     List<User> selectSingleChooseWWhere(User user);
 
+    void addUser (User user );
+    int addUserReturnId (User user );
+
+    void updateUser (User user);
+
+    void updateUserDynamic (User user);
+
+    void delById(int userid);
+
+    //change key mapping
+    void delUsers(@Param("ids")int[] ids);
+
+    void delUsersArray(int[] ids);
+
 }
